@@ -8,8 +8,8 @@ import {Container,Nav,Navbar} from "react-bootstrap"
 
 function App() {
   return (
-    <div className="App">
-    <Container >
+    <div className="App bg-dark">
+    <div className="container-fluid" >
             <Navbar variant="light" bg="light">
                 <Container>
                   <Navbar.Brand  as={Link} to="/">Food F</Navbar.Brand>
@@ -29,7 +29,7 @@ function App() {
       </Routes>
 
 
-    </Container>
+    </div>
 
       
     </div>
