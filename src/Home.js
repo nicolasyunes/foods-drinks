@@ -4,25 +4,24 @@ import styled from "styled-components"
 import vegetables from '../src/Static/Images/vegetables.jpg'
 import ListFood from "./ListFood"
 import TotalResume from './TotalResume';
-
+import Shop from "./Shop"
 function Home(props) {
    
  
-    return (<Styled className=" bg-dark container-fluid">
+    return (<Styled className="">
               <div className="title">
-                <div className="">
+                <span>
                   <h1>
                    We Are GoodFood
                    <p className="text">Lorem ipsum dolor sit amet, consectetur adip</p>
                 </h1>
                 
-                </div>
+                </span>
                   <Figure style={{width: '100%',height: '600px', margin: '0px'}}>
                 
                     <Figure.Image
                         width={"100%"}
-                        height={"auto"}
-                        alt="171x180"
+                                                alt="171x180"
                         src={vegetables}
                         className="imageBackground"
                         
@@ -32,12 +31,13 @@ function Home(props) {
               </div>  
               
               <div className="body d-flex">
+              
                     <div className="list-foods col-9">
                         <ListFood/>
                     </div>
                     
-                    <div className="list-total col-3">
-                        <TotalResume/>
+                    <div className="list-total col-lg-3 col-md-4 col-sm-12">
+                    <div className="shop"><Shop/></div>
                     </div>
               </div>
                     
@@ -55,8 +55,8 @@ h1{
     position:relative;
     top:170px;
     opacity:0.5;
-    left:-450px;
-    right:0px;
+    left:-10%;
+  
     
 
 }
@@ -68,12 +68,28 @@ h1{
 
 .list-foods{
   display:flex;
-  justify-content:space-between;
+
+
 }
 
 .body{
   display:flex;
-  flex-direction:row
+  flex-direction:row;
+  @media (max-width: 768px){
+    flex-direction:column-reverse;
+  }
 }
 
+.shop{
+  position:sticky;
+  top:50px;
+}
+
+
+.MuiButton-root{
+  background-color:#929095;
+  color:white;
+  font-weight:bold;
+  width:50%;
+}
 `

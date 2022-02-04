@@ -1,82 +1,71 @@
-import React from 'react';
-import styled from "styled-components"
-const TotalResume = () => {
-    
-    let amount = 123
-    let kal = 155154
-    let price = 100000
-    
-    
-    
-    
-    return (
-    <StyledResume className="resume sticky-md-top ">
-
-            <div className="card-container " >
-            <div className="card-header ">
-                Shop
-            </div>
-            <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                    <div>
-                        Amount of dishes
-                    </div>    
-                    <div className="bold">
-                        {amount}
-                    </div>
-                </li>
-                <li className="list-group-item">
-                <div>
-                       Calories
-                    </div>    
-                    <div className="bold">
-                        ${kal}
-                    </div>
-                </li>
-                <li className="list-group-item price">
-                <div>
-                        Price
-                    </div>    
-                    <div className="bold">
-                        ${price}
-                    </div>
-                </li>
-            </ul>
-            </div>
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import FolderIcon from '@mui/icons-material/Folder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button/Button';
 
 
-    </StyledResume>
-    );
+function generate(element) {
+  return ["Dishes", 1, 2].map((value) =>
+    React.cloneElement(element, {
+      key: value,
+    }),
+  );
 }
 
-const StyledResume = styled.div`
+const Demo = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+}));
 
-width:100%;
+export default function InteractiveList() {
+  const [dense, setDense] = React.useState(false);
+  const [secondary, setSecondary] = React.useState(false);
 
-.card-container {
-    margin-top:20%;
-    background-color:white;
-    border:1px solid grey;
-    border-radius:10px;
-    width:80%;
-    position:sticky;
-    
-    opacity:0.8;
-    height:350px;
-    align-items: start;
-    
-    
+  return (
+    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+      
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+            Shopping
+          </Typography>
+          <Demo>
+            <List dense={dense}>
+              {["Disehes","Price","Calories"].map(element =>{
+               return(
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={element}
+                    secondary={secondary ? 'Secondary text' : "datas"}
+                  />
+                </ListItem>
+              )
+              })}
+            </List>
+          </Demo>
+          <div className="my-4 mx-2 col-form-label-md">TOTAL: $120</div>
+          <Button>Go to buy</Button>
+        </Grid>
+       
+      </Grid>
+    </Box>
+  );
 }
-
-.list-group-item{
-    justify-content:space-between;
-    display:flex;
-    weight:bold;
-}
-
-`
-
-
-
-
-export default TotalResume;

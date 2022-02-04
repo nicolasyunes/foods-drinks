@@ -8,7 +8,7 @@ import {Container,Nav,Navbar} from "react-bootstrap"
 
 function App() {
   return (
-    <div className="App bg-dark">
+    <div className="App bg-secondary">
     <div className="container-fluid" >
             <Navbar variant="light" bg="light">
                 <Container>
