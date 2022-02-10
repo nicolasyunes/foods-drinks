@@ -1,6 +1,8 @@
 .App {
   text-align: center;
   font-family: 'Nunito', sans-serif;
+  background-color: #f7f7f7
+
 }
 
 .App-logo {
@@ -37,3 +39,12 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar{
+  position:sticky;
+  top:0px;
+  z-index: 1;
+  width:100%;
+
+}
+
