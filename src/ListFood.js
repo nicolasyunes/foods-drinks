@@ -27,7 +27,7 @@ const ListFood = () => {
     const [page, setPage] = React.useState(1);
     const [show, setShow] = useState(false);
     const [ingredient , setIngredient] = useState("");
-    const [perPage, setPerPage] = useState(8);
+    const [perPage, setPerPage] = useState(6);
     const [categories, setCategories] = useState([])
     
     //0b2e902fdbb14378a4079220ab9dbbd2
@@ -102,7 +102,7 @@ const ListFood = () => {
             {data.results? data.results.map((element,i)=>{
                 if(i < (page * perPage) && i >= (page * perPage)-perPage) 
                 return(
-                    <div className="col-lg-4 col-md-6 col-xl-4  col-sm-12  my-4 p-3">
+                    <div className="col-lg-4 col-md-6 col-xl-4  col-sm-12  my-4 p-3 item">
                         <ItemCard element={element} handle={()=>renderModal(element)} />
                     </div>
                 )
@@ -139,7 +139,7 @@ const Categories  = () =>{
             {categories.map((element)=>{
                 return(
                     <div className="p-3   col-lg-3 col-md-3 ">
-                        <div className="card-body">
+                        <div className="card-body-categories">
                             <h5 className="card-title">{element.title}</h5>
                             <div>
                                 <img width="100" height="100" src={element.icon} alt={element.title} />
@@ -172,21 +172,31 @@ const Style = styled.div`
 }
 img {
     border-radius:90px;
-    
 }
 
 .containerCategories{
     display:flex;
     width:100%;!important;
     padding:20px;
+    
 
     @media (max-width: 768px) {
         display:flex;
         flex-direction:column;
     }
-   
-    
 }
+
+.card-body-categories{
+box-shadow: -2px 1px 10px 0px rgba(0,0,0,0.77);
+-webkit-box-shadow: -2px 1px 10px 0px rgba(0,0,0,0.77);
+-moz-box-shadow: -2px 1px 10px 0px rgba(0,0,0,0.77);
+height:100%;
+padding:20px;
+}
+
+.item{}
+
+
 
 
 
