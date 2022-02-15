@@ -2,24 +2,19 @@ import React,{useState} from 'react';
 import { Field, Formik } from 'formik';
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap';
-
+import axios from 'axios'
 
  const fetchLogin = (values,event) => {
     let options = {
     email: values.email,
     password: values.password}
 
-    fetch('http://challenge-react.alkemy.org/', {
-        method: 'post',
-        headers: {'Content-Type':'application/json'},
-        body:(options)
-           
-        
-       })
-       .then((response) => {
-           window.localStorage.setItem("token", response.token)
-       })
-} 
+    axios.post('http://challenge-react.alkemy.org/', options)
+    .then(response =>{
+       window.localStorage.setItem("token", response.token)
+       console.log("token registrado " , response.token)
+    })
+  }
 
 const Basic = () => (
     

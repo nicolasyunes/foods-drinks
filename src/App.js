@@ -1,48 +1,129 @@
-import * as React from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import Home from "./Home";
-import About from "./About";
 import "./App.css";
-import Shop from "./Shop";
-import {Container,Nav,Navbar,Button} from "react-bootstrap"
-import Login from "./Login";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useParams,
+  Link,
+  useNavigate,
+} from "react-router-dom";
+import { useState } from "react";
+import About from "./About";
+import Home from "./Home";
+import NavBar from "./NavBar";
+
+
 function App() {
-
-
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  let token = window.localStorage.getItem("token")
+  console.log("first token " , token)
   return (
-    <div className="App container">
-    <div className="navbar" >
-            <Navbar variant="light" bg="light">
-                <Container>
-                  <Navbar.Brand  as={Link} to="/">Food F</Navbar.Brand>
-                  <Nav className="me-auto">
-                    <Nav.Link as={Link} to="/Home" >Home</Nav.Link>
-                    <Nav.Link as={Link} to="/About" >About</Nav.Link>
-                  </Nav>  
-                </Container>
-              
-                
-                <Container className="justify-content-end">
-                    <Navbar.Brand  as={Shop}/>
-                    <Nav.Link as={Link} to="/Login" >login</Nav.Link>
-                </Container>
-                
-            </Navbar>
-    
+    <BrowserRouter>
+      <NavBar />
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="Login" element={<Login />} />
+        
+        {/* Routes before Login */}
+
+        <Route
+          path="/login"
+          element={<Login onLoginUpdate={setIsLoggedIn} />}
+        ></Route>
+        <Route
+          path="/signup"
+          element={<Signup onLoginUpdate={setIsLoggedIn} />}
+        ></Route>
+
+        {/* Routes after login */}
+        
+        {isLoggedIn && (
+          <>
+            <Route
+              path="/logout"
+              element={<Logout onLoginUpdate={setIsLoggedIn} />}
+            ></Route>
+            <Route path="/about" element={<About />}></Route>
+            
+          </>
+        )}
+
+        {/* Routes for everyone */}
+
+        <Route
+          path="/"
+          element={
+            <Home isLoggedIn={isLoggedIn} onLoginUpdate={setIsLoggedIn} />
+          }
+        ></Route>
+        <Route
+          path="/home"
+          element={
+            <Home isLoggedIn={isLoggedIn} />
+          }
+        ></Route>
+
+        <Route path="/:pageName" element={<PageNotFound />}></Route>
       </Routes>
-
-
-    </div>
-
-      
-    </div>
+    </BrowserRouter>
   );
 }
+
+
+function Login({ onLoginUpdate }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => {
+        onLoginUpdate(true);
+        navigate("/");
+      }}
+    >
+      Login
+    </button>
+  );
+}
+
+function Signup({ onLoginUpdate }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => {
+        onLoginUpdate(true);
+        navigate("/");
+      }}
+    >
+      Signup
+    </button>
+  );
+}
+
+function Logout({ onLoginUpdate }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => {
+        onLoginUpdate(false);
+        navigate("/");
+        window.localStorage.setItem("token","")
+      }}
+    >
+      Logout
+    </button>
+  );
+}
+
+
+function PageNotFound() {
+  const params = useParams();
+  let message = `"${params.pageName}" page not found!`;
+  if (params.pageName == "about") {
+    message = "You need to be logged in to access this page.";
+  }
+
+  return <p>{message}</p>;
+}
+
+
+
 
 export default App;

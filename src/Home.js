@@ -4,44 +4,52 @@ import styled from "styled-components"
 import vegetables from '../src/Static/Images/vegetables.jpg'
 import About from './About';
 import ListFood from "./ListFood"
-import Random from './Random'
-function Home(props) {
+import Random from './Random';
+import Login from './Login'
+
+
+function Home({ isLoggedIn, onLoginUpdate }) {
    
- 
-    return (<Styled className="">
-              <div className="title d-flex">
-                
-                  <Figure style={{width: '100%',height: '600px', margin: '0px'}}>
-                
-                    <Figure.Image
-                        width={"100%"}
-                                                alt="171x180"
-                        src={vegetables}
-                        className="imageBackground "
-                        
-                    />
 
-                </Figure>
-              </div>  
+
+  if (isLoggedIn) {
+    return <Styled className="">
+    <div className="title d-flex">
+      
+        <Figure style={{width: '100%',height: '600px', margin: '0px'}}>
+      
+          <Figure.Image
+              width={"100%"}
+                                      alt="171x180"
+              src={vegetables}
+              className="imageBackground "
               
-              <div className="body  bg-light">
-              
-                    <div className="list-foods col-lg-9 col-sm-12">
-                        <ListFood/>
-                    </div>
-                    
-                    
-                    <div className="about col-lg-3 col-sm-12">
-                      <About/>
-                      <Random />
-                    </div>
-                    
-              </div>
-                    
+          />
+
+      </Figure>
+    </div>  
+    
+    <div className="body  bg-light">
+    
+          <div className="list-foods col-lg-9 col-sm-12">
+              <ListFood/>
+          </div>
+          
+          
+          <div className="about col-lg-3 col-sm-12">
+            <About/>
+            <Random />
+          </div>
+          
+    </div>
+          
 
 
 
-    </Styled>  );
+</Styled>
+  }else{
+    return <Login onLoginUpdate={onLoginUpdate} />
+  }
 }
 
 export default Home;
