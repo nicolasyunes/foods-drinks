@@ -3,22 +3,31 @@ import { Field, Formik } from 'formik';
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap';
 import axios from 'axios'
+import {useNavigate } from 'react-router-dom'
+ 
 
- const fetchLogin = (values,event) => {
-    let options = {
-    email: values.email,
-    password: values.password}
 
-    axios.post('http://challenge-react.alkemy.org/', options)
-    .then(response =>{
-       window.localStorage.setItem("token", response.token)
-       console.log("token registrado " , response.token)
-    })
-  }
-
-const Basic = () => (
-    
-  <StyledLogin className="container">
+function Basic () {
+  let history = useNavigate ();
+  const  fetchLogin = (values,props) =>{
+   
+   
+       let options = {
+       email: values.email,
+       password: values.password}
+   
+       axios.post('http://challenge-react.alkemy.org/', options)
+       .then(response =>{
+          window.localStorage.setItem("token", response.data.token)
+          console.log("token registrado " , response.token);
+          alert("se logeo correctamente");
+          history("./home")
+         
+       })
+     }
+  
+  
+  return <StyledLogin className="container">
     <h1>Sign Up</h1>
     <Formik
       initialValues={{ email: '', password: ''  }}
@@ -93,7 +102,7 @@ const Basic = () => (
       )}
     </Formik>
   </StyledLogin>
-);
+}
 
 export default Basic;
 

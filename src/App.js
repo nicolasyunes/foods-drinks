@@ -7,7 +7,7 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import About from "./About";
 import Home from "./Home";
 import NavBar from "./NavBar";
@@ -16,8 +16,6 @@ import NavBar from "./NavBar";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
-  let token = window.localStorage.getItem("token")
-  console.log("first token " , token)
   return (
     <BrowserRouter>
       <NavBar />
@@ -104,7 +102,8 @@ function Logout({ onLoginUpdate }) {
       onClick={() => {
         onLoginUpdate(false);
         navigate("/");
-        window.localStorage.setItem("token","")
+        
+        window.localStorage.setItem("token",null)
       }}
     >
       Logout
