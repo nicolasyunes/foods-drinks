@@ -6,50 +6,45 @@ import About from './About';
 import ListFood from "./ListFood"
 import Random from './Random';
 import Login from './Login'
+import {Navigate} from "react-router-dom"
 
 
-function Home({ isLoggedIn, onLoginUpdate }) {
-   
+function Home() {
 
+  let token = localStorage.getItem('token')
+ 
+  
+    
+   return (
+  
 
-  if (isLoggedIn) {
-    return <Styled className="">
+   <Styled className="">
+   { !token && <Navigate to="/" />}
     <div className="title d-flex">
       
         <Figure style={{width: '100%',height: '600px', margin: '0px'}}>
-      
           <Figure.Image
               width={"100%"}
-                                      alt="171x180"
+              alt="171x180"
               src={vegetables}
               className="imageBackground "
-              
           />
-
-      </Figure>
+        </Figure>
     </div>  
     
     <div className="body  bg-light">
-    
-          <div className="list-foods col-lg-9 col-sm-12">
-              <ListFood/>
-          </div>
-          
-          
-          <div className="about col-lg-3 col-sm-12">
-            <About/>
-            <Random />
-          </div>
-          
+      <div className="list-foods col-lg-9 col-sm-12">
+        <ListFood/>
+      </div>
+      
+      <div className="about col-lg-3 col-sm-12">
+        <About/>
+        <Random />
+      </div>
     </div>
-          
-
-
-
-</Styled>
-  }else{
-    return <Login onLoginUpdate={onLoginUpdate} />
-  }
+  </Styled>
+   )
+  
 }
 
 export default Home;

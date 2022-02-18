@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-function About(props) {
-    return (<StyledAbout>
+import {Navigate} from 'react-router-dom'
+function About() {
+    let token = localStorage.getItem('token')
+    return (
+    
+       
+    <StyledAbout>
+    {!token && <Navigate to="/" />}
         <h1>
             Welcome!!
         </h1>

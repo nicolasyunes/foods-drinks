@@ -7,28 +7,27 @@ import {useNavigate } from 'react-router-dom'
  
 
 
-function Basic () {
-  let history = useNavigate ();
+function Basic ({onLoginUpdate}) {
+  let navigate = useNavigate ();
+    
+  
   const  fetchLogin = (values,props) =>{
-   
-   
-       let options = {
+    let options = {
        email: values.email,
        password: values.password}
    
-       axios.post('http://challenge-react.alkemy.org/', options)
+    axios.post('http://challenge-react.alkemy.org/', options)
        .then(response =>{
           window.localStorage.setItem("token", response.data.token)
-          console.log("token registrado " , response.token);
-          alert("se logeo correctamente");
-          history("./home")
+          navigate("/home")
          
+          
        })
      }
   
   
   return <StyledLogin className="container">
-    <h1>Sign Up</h1>
+    <h1>Sign In</h1>
     <Formik
       initialValues={{ email: '', password: ''  }}
       
@@ -96,7 +95,7 @@ function Basic () {
         </div>
 
         <Button type="submit" disabled={isSubmitting}>
-            Enviar
+            Send
          </Button>
         </form>
       )}
@@ -214,5 +213,11 @@ body {
 	width: auto;
 }
 
+h1{
+  justify-content: center;
+  display:flex;
+  font-family:monospace;  
+  
+}
 `
 

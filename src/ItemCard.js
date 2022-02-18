@@ -3,10 +3,9 @@ import { Button } from '@mui/material';
 import styled from 'styled-components';
 
 
-export default function ItemCard(props) {
+export default function ItemCard(props,{setTrolley,trolley}) {
     const { element } = props;
 
-    console.log("ELEMENT " , element);
 
   return (
     <Card>
@@ -22,7 +21,11 @@ export default function ItemCard(props) {
                             Ingredients
                             </Button>:null }
                             
-                            <Button className="btn m-1 bg-dark">Add</Button>
+                            <Button className="btn m-1 bg-dark" 
+                              onClick={()=>{
+                                console.log("this element " , element)
+                                setTrolley(element)
+                              }}>Add</Button>
                         </div>
                         
                     </div>

@@ -22,13 +22,14 @@ const propTypes = {};
 
 const defaultProps = {};
 //https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=8&pageNumber=2&api_key=6h5o7nrDTHm5JkyOLccvSTpuRFvT8PQOUXuOHht5
-const ListFood = () => {
+function ListFood () {
+
     const [data,setData] = useState("")
     const [page, setPage] = React.useState(1);
     const [show, setShow] = useState(false);
     const [ingredient , setIngredient] = useState("");
     const [perPage, setPerPage] = useState(6);
-    const [categories, setCategories] = useState([])
+    const [trolley , setTrolley] = useState([])
     
     //0b2e902fdbb14378a4079220ab9dbbd2
     
@@ -48,15 +49,7 @@ const ListFood = () => {
 
     useEffect(() => {
         fetchData();
-       
-        
     }, []);
-
-  
-
-   
-
-  
 
     
     const handleChangePage = (event, newPage) => {
@@ -72,7 +65,11 @@ const ListFood = () => {
         
     }
 
-    
+    const addStore = (element) => {
+        setTrolley(element)
+    }
+
+    console.log("trolley" , trolley);
     
     return <Style>
     <div className=" row  p-3 my-5  ">
@@ -98,12 +95,11 @@ const ListFood = () => {
             
             </div>
 
-
             {data.results? data.results.map((element,i)=>{
                 if(i < (page * perPage) && i >= (page * perPage)-perPage) 
                 return(
                     <div className="col-lg-4 col-md-6 col-xl-4  col-sm-12  my-4 p-3 item">
-                        <ItemCard element={element} handle={()=>renderModal(element)} />
+                        <ItemCard element={element} handle={()=>renderModal(element)} trolley={trolley} setTrolley={setTrolley}/>
                     </div>
                 )
                 }):
