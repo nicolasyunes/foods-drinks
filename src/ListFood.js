@@ -1,9 +1,7 @@
 
 
-import React,{useState,useEffect} from 'react';
-import cocktail from './Static/Images/cocktail.jpg'
-import cocktail2 from './Static/Images/cocktail2.png'
-import PropTypes from 'prop-types';
+import React,{useState,useEffect,useContext} from 'react';
+import cocktail2 from './Static/Images/cocktail2.png';
 import styled from 'styled-components';
 import axios from 'axios';
 import Divider from '@mui/material/Divider/Divider';
@@ -11,7 +9,7 @@ import Pagination from '@mui/material/Pagination/Pagination';
 import fruits from "./Static/Images/fruits.png"
 import vegetables2 from "./Static/Images/vegetables2.png"
 import juice from "./Static/Images/juice.png"
-import { Button } from '@mui/material';
+import { ListGroupItem, ListGroup } from 'react-bootstrap';
 import ItemCard from "./ItemCard"
 import Ingredients from "./Ingredients"
 
@@ -22,24 +20,24 @@ const propTypes = {};
 
 const defaultProps = {};
 //https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=8&pageNumber=2&api_key=6h5o7nrDTHm5JkyOLccvSTpuRFvT8PQOUXuOHht5
-function ListFood () {
+function ListFood ({dataMenu}) {
 
     const [data,setData] = useState("")
     const [page, setPage] = React.useState(1);
     const [show, setShow] = useState(false);
     const [ingredient , setIngredient] = useState("");
     const [perPage, setPerPage] = useState(6);
-    const [trolley , setTrolley] = useState([])
+    const [trolley , setTrolley] = useState([]);
+
     
-    //0b2e902fdbb14378a4079220ab9dbbd2
     
     const fetchData = () => {
         axios
         //www.themealdb.com/api/json/v1/1/search.php?f=a
         
-            .get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=0b2e902fdbb14378a4079220ab9dbbd2')
+            .get('https://api.spoonacular.com/recipes/complexSearch?query=vegan&number=2&apiKey=d213a7d9b7de47d3a6419902b2f5cb94')
             .then((res) => {
-                console.log(res.data);
+              
                 setData(res.data);
             })
             .catch((err) => {
@@ -53,7 +51,6 @@ function ListFood () {
 
     
     const handleChangePage = (event, newPage) => {
-        console.log("EVENT " ,event , "+ " , newPage);
         setPage(newPage);
       };
  
@@ -62,35 +59,55 @@ function ListFood () {
     const renderModal = (element) => {
         setShow(true);
         setIngredient(element)
-        
     }
 
     const addStore = (element) => {
-        setTrolley(element)
+        if(trolley.includes(element)){
+            alert("ya existe")
+        }else{
+           setTrolley(arr=> [...arr , element]); 
+        }
+        
     }
 
-    console.log("trolley" , trolley);
+    const deleteItem = (e) => {
+       let result = trolley.filter(item => item.id !== e.id);
+       setTrolley(result)
+    }
+
+    console.log("trolley" , trolley.map(e=>e.title));
     
     return <Style>
     <div className=" row  p-3 my-5  ">
             <div className="text-light">
                 <h2>MENUS</h2>
+                <ListGroup >
+                    { trolley.map(e=><ListGroupItem className="listMenu">
+                        <div >
+                            {e.title} {e.id}
+                            
+                        </div>
+                        <div className="mx-2">
+                            <a onClick={()=>alert("More details")} className="m-4">View Details</a>
+                            <i onClick={()=>deleteItem(e)} className="fa-solid fa-trash"></i>
+                        </div>   
+                    </ListGroupItem>)}
+                </ListGroup>
             </div>
 
         <div className="containerList row">
             <Categories/>
             
             <div className="mt-5">
-            
                 <Divider textAlign="left" >
                     <h6>Most Popular</h6>
                 </Divider> 
             
             
             <div className="justify-content-end d-flex">
-            <Pagination
-                count={data.results ?Math.ceil(data.results.length/perPage):null}  variant="outlined" page={page}  onChange={handleChangePage}
-             />
+                <Pagination
+                    count={data.results ?Math.ceil(data.results.length/perPage):null}  variant="outlined" page={page}  onChange={handleChangePage}
+                />
             </div>
             
             </div>
@@ -99,7 +116,7 @@ function ListFood () {
                 if(i < (page * perPage) && i >= (page * perPage)-perPage) 
                 return(
                     <div className="col-lg-4 col-md-6 col-xl-4  col-sm-12  my-4 p-3 item">
-                        <ItemCard element={element} handle={()=>renderModal(element)} trolley={trolley} setTrolley={setTrolley}/>
+                        <ItemCard element={element} handle={()=>renderModal(element)} trolley={trolley} setTrolley={()=>addStore(element)}/>
                     </div>
                 )
                 }):
@@ -190,14 +207,20 @@ height:100%;
 padding:20px;
 }
 
-.item{}
+.listMenu{
+    display:flex;
+    justify-content: space-between;
+    border: none;
+    background-color:#F0F3F4;
+}
 
+h2{
+    color:black;
 
-
-
-
-
-
+}
+i,a{
+    cursor:pointer;
+}
 `
 
 export default ListFood;

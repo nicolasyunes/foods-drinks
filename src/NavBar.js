@@ -1,6 +1,7 @@
 import {React} from 'react';
-import {Container,Nav,Navbar} from "react-bootstrap"
+import {Container,Nav,Navbar,NavDropdown} from "react-bootstrap"
 import { Link } from 'react-router-dom';
+import TotalResume from "./TotalResume"
 
 
 
@@ -13,14 +14,17 @@ function NavBar () {
                   <Nav className="me-auto">
                     <Nav.Link as={Link} to="/home" >Home</Nav.Link>
                     <Nav.Link as={Link} to="/about" >About</Nav.Link>
-                   
+                    
                   </Nav>  
                 </Container>
               
                 
                 <Container className="justify-content-end">
+                
+                <Nav.Link as={Link} to="/shop" >Shop</Nav.Link>
                 <Nav.Link as={Link} to="/" >Login</Nav.Link>
                 <Nav.Link as={Link} to="/logout" >Logout</Nav.Link>
+                
                 </Container>
                 
             </Navbar>

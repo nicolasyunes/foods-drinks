@@ -4,16 +4,21 @@ import styled from "styled-components"
 import vegetables from '../src/Static/Images/vegetables.jpg'
 import About from './About';
 import ListFood from "./ListFood"
-import Random from './Random';
-import Login from './Login'
+import Menu from './Menu';
+
 import {Navigate} from "react-router-dom"
 
 
 function Home() {
 
   let token = localStorage.getItem('token')
- 
+  const [data,setData] = useState("");
   
+  const getMenu = (data) => {
+    setData(data)
+    
+  }
+
     
    return (
   
@@ -34,12 +39,12 @@ function Home() {
     
     <div className="body  bg-light">
       <div className="list-foods col-lg-9 col-sm-12">
-        <ListFood/>
+        <ListFood dataMenu={()=>getMenu(data)}/>
       </div>
       
       <div className="about col-lg-3 col-sm-12">
         <About/>
-        <Random />
+        <Menu data={data?data:null}/>
       </div>
     </div>
   </Styled>

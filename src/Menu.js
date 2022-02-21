@@ -1,9 +1,9 @@
 import {React,useEffect,useState} from 'react'
-import ItemCard from "./ItemCard";
+
 import axios from "axios";
 import Divider from "@mui/material/Divider/Divider"
 
-export default function Random() {
+export default function Menu({data}) {
   
   const [random,setRandom] = useState([])
 
@@ -17,16 +17,19 @@ export default function Random() {
     fetchRandom();
   }, []);
 
-  console.log("RANDOM " , random)
+  console.log("data msp  " , data)
 
 
   return (
     <div className="p-4 randomCard " style={{"marginTop":"100px"}}>
       <Divider textAlign="center" className="pb-4">
-        <h6>Best seller </h6>
+        <h6>Menu</h6>
       </Divider> 
+      <div>
       
-      <ItemCard element={random} />
+      </div>
+      
+      
     </div>
   )
 }

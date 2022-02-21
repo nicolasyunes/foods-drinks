@@ -22,10 +22,7 @@ export default function ItemCard(props,{setTrolley,trolley}) {
                             </Button>:null }
                             
                             <Button className="btn m-1 bg-dark" 
-                              onClick={()=>{
-                                console.log("this element " , element)
-                                setTrolley(element)
-                              }}>Add</Button>
+                              onClick={()=>props.setTrolley?props.setTrolley():null}>Add</Button>
                         </div>
                         
                     </div>
