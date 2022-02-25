@@ -10,7 +10,8 @@ import NavBar from "./NavBar";
 import Home from "./Home";
 import About from "./About";
 import Logout from "./Logout";
-import Shop from "./Shop";
+
+
 function App2() {
 
   
@@ -23,10 +24,8 @@ function App2() {
         <Route path="/home" element={<Home />}/>
         <Route path="/about" element={<About />}/>
         <Route path="/logout" element={<Logout />}/>
-        <Route path="/shop" element={<Shop />}/>
-           
-        
       </Routes>
+     
     </BrowserRouter>
   );
 }

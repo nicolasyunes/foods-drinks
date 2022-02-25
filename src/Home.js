@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { } from 'react';
 import Figure from 'react-bootstrap/Figure';
 import styled from "styled-components"
-import vegetables from '../src/Static/Images/vegetables.jpg'
-import About from './About';
+import Footer from "./components/Footer"
+
 import ListFood from "./ListFood"
-import Menu from './Menu';
+
 
 import {Navigate} from "react-router-dom"
 
@@ -12,12 +12,10 @@ import {Navigate} from "react-router-dom"
 function Home() {
 
   let token = localStorage.getItem('token')
-  const [data,setData] = useState("");
+
+
   
-  const getMenu = (data) => {
-    setData(data)
-    
-  }
+
 
     
    return (
@@ -25,27 +23,31 @@ function Home() {
 
    <Styled className="">
    { !token && <Navigate to="/" />}
-    <div className="title d-flex">
+    <div className="title">
       
         <Figure style={{width: '100%',height: '600px', margin: '0px'}}>
           <Figure.Image
               width={"100%"}
               alt="171x180"
-              src={vegetables}
+              src="https://as2.ftcdn.net/v2/jpg/04/80/54/61/1000_F_480546153_XWGCHuc5gmuDuHJYOXqO7Gl8cIkSq4Qe.jpg"
               className="imageBackground "
           />
+          
         </Figure>
+        <div className="text-center">
+          <div className="tracking-out-contract">FOODS AND DRINKS </div>
+          <p >lorem ipsum dolor sit amet, consectetur adip</p>
+        </div>
+        
     </div>  
     
     <div className="body  bg-light">
-      <div className="list-foods col-lg-9 col-sm-12">
-        <ListFood dataMenu={()=>getMenu(data)}/>
+      <div className="list-foods col-lg-12 col-sm-12">
+        <ListFood />
+         <Footer />
       </div>
       
-      <div className="about col-lg-3 col-sm-12">
-        <About/>
-        <Menu data={data?data:null}/>
-      </div>
+      
     </div>
   </Styled>
    )
@@ -56,10 +58,25 @@ export default Home;
 
 const Styled = styled.div`
 
+.text-center{
+  font-family: 'Nunito', sans-serif;
+font-family: 'Nunito Sans', sans-serif;
+  font-size:54px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  >p{
+    font-size:24px
+  }
+  
+}
 
 .imageBackground{
   vertical-align:bottom;
-  height:100%
+  height:100%;
+      object-fit: cover;
+  
 }
 
 .body{
@@ -105,6 +122,35 @@ const Styled = styled.div`
 }
 
 
+.tracking-out-contract {
+	-webkit-animation: tracking-out-contract 4000ms cubic-bezier(0.600, -0.280, 0.735, 0.045) infinite alternate-reverse both;
+	        animation: tracking-out-contract 4000ms cubic-bezier(0.600, -0.280, 0.735, 0.045) infinite alternate-reverse both;
+}
+
+@-webkit-keyframes tracking-out-contract {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+}
+@keyframes tracking-out-contract {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+}
 
 
 `

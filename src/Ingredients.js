@@ -9,10 +9,7 @@ export default function Ingredients(props) {
     let element = props.data
     return (
       <>
-        <Button variant="primary" onClick={handleShow}>
-         
-        </Button>
-  
+        
         <Modal show={props.show} onHide={props.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Ingredients {element.strMeal}</Modal.Title>
