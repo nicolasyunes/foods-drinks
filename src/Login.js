@@ -16,7 +16,7 @@ function Basic ({onLoginUpdate}) {
        email: values.email,
        password: values.password}
    
-    axios.post('http://challenge-react.alkemy.org/', options)
+    axios.post('https://challenge-react.alkemy.org/', options)
        .then(response =>{
           window.localStorage.setItem("token", response.data.token)
           navigate("/home")
